@@ -21,7 +21,8 @@ export function getResolver(): Record<string, DIDResolver> {
       path = id.map(decodeURIComponent).join('/') + '/did.json'
     }
 
-    const url = `https://${path}`
+    const url =
+      process?.env?.WEB_DID_RESOLVER_DANGEROUSLY_USE_UNSECURE_HTTP === 'true' ? `http://${path}` : `https://${path}`
 
     const didDocumentMetadata = {}
     let didDocument: DIDDocument | null = null
